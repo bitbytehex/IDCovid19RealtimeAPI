@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Covid-19 Terbaru</title>
+    <style>
+        .datax #show1{
+            width: 100%;
+            float: left;
+            text-align: center;
+        }.datax #show2{
+            width: 100%;
+            float: left;
+            text-align: center;
+        }.datax #show3{
+            width: 100%;
+            float: left;
+            text-align: center;
+        }.datax #show4{
+            width: 100%;
+            float: left;
+            text-align: center;
+        }
+        .positif, .sembuh, .meninggal, .dirawat {
+            margin: 1%;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px 2px rgba(0,0,0,.5);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            color: white;
+            font-family: cursive;
+            font-size: 1em;
+        }
+        .datax .positif {
+            background: #ed2828;
+        }
+        .datax .sembuh {
+            background: #4166F1;
+        }
+        .datax .meninggal {
+            background: #000000;
+        }
+        .datax .dirawat {
+            background: #47fc00;
+        }
+        #show1 .angka {
+            font-size: 2em;
+            font-weight: 700;
+        text-shadow: 2px 2px 4px #000000;
+        }
+        #show2 .angka {
+            font-size: 2em;
+            font-weight: 700;
+        text-shadow: 2px 2px 4px #000000;
+        }
+        #show3 .angka {
+            font-size: 2em;
+            font-weight: 700;
+        text-shadow: 2px 2px 4px #000000;
+        }
+        #show4 .angka {
+            font-size: 2em;
+            font-weight: 700;
+        text-shadow: 2px 2px 4px #000000;
+        }
+        #show1 .detail {
+            background: white;
+            width: 100%;
+            display: block;
+            color: black;
+            box-shadow: 0px -2px 4px 1px #66c7ff;
+        }
+        #show2 .detail {
+            background: white;
+            width: 100%;
+            display: block;
+            color: black;
+            box-shadow: 0px -2px 4px 1px #66c7ff;
+        }
+        #show3 .detail {
+            background: white;
+            width: 100%;
+            display: block;
+            color: black;
+            box-shadow: 0px -2px 4px 1px #66c7ff;
+        }
+        #show4 .detail {
+            background: white;
+            width: 100%;
+            display: block;
+            color: black;
+            box-shadow: 0px -2px 4px 1px #66c7ff;
+        }
+        .datax .title {
+            text-align: center;
+            text-transform: uppercase;
+            font-family: monospace;
+            font-size:1.5em;
+        }
+.auto_num {counter-reset: serial-number;} .auto_num td:first-child:before {counter-increment: serial-number;content: counter(serial-number); } tr:nth-child(even){background-color: #f2f2f2;}
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+        <script>
+        $(document).ready(function(){
+        var d = new Date();
+        var month = new Array();
+          month[0] = "Januari";
+          month[1] = "Februari";
+          month[2] = "Maret";
+          month[3] = "April";
+          month[4] = "Mei";
+          month[5] = "Juni";
+          month[6] = "Juli";
+          month[7] = "Agustus";
+          month[8] = "September";
+          month[9] = "Oktober";
+          month[10] = "November";
+          month[11] = "Desember";
+        
+        $("#date").html(d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear());
+            $.ajax({async: true, cache: true, url: "https://api.kawalcorona.com/indonesia/", success: function(result){
+             $("#positif").html(result[0].positif);
+             $("#sembuh").html(result[0].sembuh);
+             $("#meninggal").html(result[0].meninggal);
+            $("#dirawat").html(result[0].dirawat);
+            }});
+             $.ajax({
+	async: true,
+	cache: true,
+	url: "https://api.kawalcorona.com/indonesia/provinsi/",
+	success: function (obj) {
+
+	for(var i=0;i<obj.length;i++) {
+
+    	var tr="<tr>";
+
+    	var auto_num="<td></>";
+
+    	var td1="<td>"+"<span>"+obj[i].attributes['Provinsi']+"</span>"+"</td>";
+
+    	var td2="<td>"+obj[i].attributes['Kasus_Posi']+"</td>";
+
+    	var td3="<td>"+obj[i].attributes['Kasus_Semb']+"</td>";
+
+    	var td4="<td>"+obj[i].attributes['Kasus_Meni']+"</td></tr>";
+    
+   		$("#dataProv").append(tr+auto_num+td1+td2+td3+td4); 
+  
+	}
+
+}});
+
+        });
+        </script>
+   
+</head>
+<body>
+        <div class="datax">
+        <div class="title">
+        <h2>covid-19 <a href="https://www.panduancode.com" style="color: #000;
+          text-decoration: none;">indonesia</a> : <span id="date"></span></h2>
+        </div>
+        <div id="show1" class="positif">
+        <div id="positif" class="angka">
+        
+        </div>
+        <span class="detail">Positif</span>
+        </div>
+        <div id="show2" class="sembuh">
+        <div id="sembuh" class="angka"></div>
+        <span class="detail">Sembuh</span>
+        </div>
+        <div id="show3" class="meninggal">
+        <div id="meninggal" class="angka"></div>
+        <span class="detail">Meninggal</span>
+        </div>
+        <div id="show4" class="dirawat">
+        <div id="dirawat" class="angka"></div>
+        <span class="detail">Dirawat</span>
+        </div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+    <table border="1" id="auto_num" align="center" style="border-collapse: collapse; width: 100%; text-align: center;">
+        <thead>
+            <tr>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>NO</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="40%">
+                <div align="center">
+              <b><span>Provinsi</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Positif</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Sembuh</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Meninggal</span></b></div>
+              </th>
+               </tr>
+        </thead>
+        <tbody class="auto_num" id="dataProv">
+       </tbody></table>
+    </div>
+</body>
+</html>
